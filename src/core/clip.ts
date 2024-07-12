@@ -1,7 +1,7 @@
-import { ClipSource, Effect } from 'types/types';
+import { ClipSource, Effect, Track } from 'types/types';
 import { Base } from './base';
 
-abstract class Clip extends Base {
+abstract class Clip extends Base<Track> {
 	public id: string;
 	public name: string;
 	public startTime: number;
