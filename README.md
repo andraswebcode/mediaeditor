@@ -1,1 +1,1 @@
-# MediaEditor
+# MediaEditor.JS

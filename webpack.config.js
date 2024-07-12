@@ -6,16 +6,21 @@ module.exports = (env) => {
 
 	return {
 		mode: production ? 'production' : 'development',
-		watch: !production,
-		entry: {
-			mediaeditor: './src/index.ts'
-		},
+		entry: './src/index.ts',
 		output: {
-			filename: `[name]${minSfx}.js`,
+			filename: `mediaeditor${minSfx}.js`,
 			path: path.resolve(__dirname, 'dist'),
+			publicPath: '/dist/',
 			library: 'mediaeditor',
 			libraryTarget: 'umd',
 			globalObject: 'window'
+		},
+		devServer: {
+			static: {
+				directory: path.join(__dirname, 'public')
+			},
+			compress: true,
+			port: 9000
 		},
 		devtool: false,
 		module: {
