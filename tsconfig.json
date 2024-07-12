@@ -9,10 +9,14 @@
 		"strict": true,
 		"strictPropertyInitialization": false,
 		"noImplicitAny": false,
-		"baseUrl": ".",
+		"baseUrl": "./",
 		"paths": {
 			"*": ["src/*"]
-		}
+		},
+		"declaration": true,
+		"declarationDir": "./types",
+		"skipLibCheck": true
 	},
-	"include": ["./src/**/*.ts"]
+	"include": ["./src/**/*.ts"],
+	"exclude": ["./node_modules"]
 }

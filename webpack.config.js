@@ -23,6 +23,7 @@ module.exports = (env) => {
 			port: 9000
 		},
 		devtool: false,
+
 		module: {
 			rules: [
 				{
@@ -33,6 +34,7 @@ module.exports = (env) => {
 			]
 		},
 		resolve: {
+			modules: [path.resolve(__dirname, 'src'), 'node_modules'],
 			extensions: ['.ts', '.js']
 		}
 	};

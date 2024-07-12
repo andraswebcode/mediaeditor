@@ -1,0 +1,3 @@
+class Clip {}
+
+export { Clip };
