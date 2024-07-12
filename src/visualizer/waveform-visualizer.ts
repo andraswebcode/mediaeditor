@@ -1,4 +1,4 @@
-import { Visualizer } from './visualizer';
+import { Visualizer } from '../core/visualizer';
 
 class WaveformVisualizer extends Visualizer {}
 
