@@ -1,9 +1,13 @@
-class Screen {
+import { Layer } from 'types/types';
+import { CollectionBase } from './collection-base';
+
+class Screen extends CollectionBase<never, Layer> {
 	public canvas: HTMLCanvasElement;
 	public context: WebGLRenderingContext | null;
 	public program: WebGLProgram | null;
 
 	public constructor(canvas: HTMLCanvasElement) {
+		super();
 		this.canvas = canvas;
 		this.context = canvas.getContext('webgl');
 		this.program = this._createShaderProgram();

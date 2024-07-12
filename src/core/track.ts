@@ -1,9 +1,9 @@
+import { Clip } from 'types/types';
 import { CollectionBase } from './collection-base';
 
-abstract class Track extends CollectionBase {
+abstract class Track extends CollectionBase<Clip> {
 	public id: string;
 	public name: string;
-	public type: string;
 }
 
 export { Track };

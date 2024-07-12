@@ -27,6 +27,11 @@ export * from 'effect/visual/brightness';
 export * from 'effect/visual/contrast';
 export * from 'effect/visual/grayscale';
 
+// Layers
+export * from 'layer/video-layer';
+export * from 'layer/image-layer';
+export * from 'layer/text-layer';
+
 // Visualizers
 export * from 'visualizer/waveform-visualizer';
 export * from 'visualizer/video-frame-visualizer';
