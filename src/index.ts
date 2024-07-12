@@ -30,3 +30,6 @@ export * from 'effect/visual/grayscale';
 // Visualizers
 export * from 'visualizer/waveform-visualizer';
 export * from 'visualizer/video-frame-visualizer';
+
+// Maths
+export * from './math/matrix4';
