@@ -27,6 +27,19 @@ type Layer = VideoLayer | ImageLayer | TextLayer;
 
 type ClipSource = string | Blob;
 
-type Transformation = {};
+type Transformation = {
+	translateX?: number;
+	translateY?: number;
+	translateZ?: number;
+	angleX?: number;
+	angleY?: number;
+	angleZ?: number;
+	scaleX?: number;
+	scaleY?: number;
+	scaleZ?: number;
+	skewX?: number;
+	skewY?: number;
+	skewZ?: number;
+};
 
 export { Clip, Track, AudioEffect, VisualEffect, Effect, Layer, ClipSource, Transformation };
