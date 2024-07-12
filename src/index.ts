@@ -18,14 +18,14 @@ export * from 'track/video-track';
 
 // Effects
 export * from 'effect/audio/audio-effect';
-export * from 'effect/audio/delay';
-export * from 'effect/audio/reverb';
-export * from 'effect/audio/equalizer';
+export * from 'effect/audio/delay-effect';
+export * from 'effect/audio/reverb-effect';
+export * from 'effect/audio/equalizer-effect';
 export * from 'effect/visual/visual-effect';
-export * from 'effect/visual/blur';
-export * from 'effect/visual/brightness';
-export * from 'effect/visual/contrast';
-export * from 'effect/visual/grayscale';
+export * from 'effect/visual/blur-effect';
+export * from 'effect/visual/brightness-effect';
+export * from 'effect/visual/contrast-effect';
+export * from 'effect/visual/grayscale-effect';
 
 // Layers
 export * from 'layer/video-layer';

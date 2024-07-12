@@ -1,12 +1,12 @@
 import { AudioClip } from 'clip/audio-clip';
 import { VideoClip } from 'clip/video-clip';
-import { Delay } from 'effect/audio/delay';
-import { Equalizer } from 'effect/audio/equalizer';
-import { Reverb } from 'effect/audio/reverb';
-import { Blur } from 'effect/visual/blur';
-import { Brightness } from 'effect/visual/brightness';
-import { Contrast } from 'effect/visual/contrast';
-import { Grayscale } from 'effect/visual/grayscale';
+import { DelayEffect } from 'effect/audio/delay-effect';
+import { EqualizerEffect } from 'effect/audio/equalizer-effect';
+import { ReverbEffect } from 'effect/audio/reverb-effect';
+import { BlurEffect } from 'effect/visual/blur-effect';
+import { BrightnessEffect } from 'effect/visual/brightness-effect';
+import { ContrastEffect } from 'effect/visual/contrast-effect';
+import { GrayscaleEffect } from 'effect/visual/grayscale-effect';
 import { ImageLayer } from 'layer/image-layer';
 import { TextLayer } from 'layer/text-layer';
 import { VideoLayer } from 'layer/video-layer';
@@ -17,9 +17,9 @@ type Clip = AudioClip | VideoClip;
 
 type Track = AudioTrack | VideoTrack;
 
-type AudioEffect = Delay | Reverb | Equalizer;
+type AudioEffect = DelayEffect | ReverbEffect | EqualizerEffect;
 
-type VisualEffect = Blur | Brightness | Contrast | Grayscale;
+type VisualEffect = BlurEffect | BrightnessEffect | ContrastEffect | GrayscaleEffect;
 
 type Effect = AudioEffect | VisualEffect;
 
