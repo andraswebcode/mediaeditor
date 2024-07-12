@@ -27,4 +27,6 @@ type Layer = VideoLayer | ImageLayer | TextLayer;
 
 type ClipSource = string | Blob;
 
-export { Clip, Track, AudioEffect, VisualEffect, Effect, Layer, ClipSource };
+type Transformation = {};
+
+export { Clip, Track, AudioEffect, VisualEffect, Effect, Layer, ClipSource, Transformation };
