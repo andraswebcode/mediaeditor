@@ -38,3 +38,4 @@ export * from 'visualizer/video-frame-visualizer';
 
 // Maths
 export * from './math/matrix4';
+export * from './math/vector3';
