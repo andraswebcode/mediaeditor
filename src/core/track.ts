@@ -1,10 +1,9 @@
-import { Base } from './base';
+import { CollectionBase } from './collection-base';
 
-abstract class Track extends Base {
+abstract class Track extends CollectionBase {
 	public id: string;
 	public name: string;
 	public type: string;
-	public clips: any;
 }
 
 export { Track };

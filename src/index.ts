@@ -4,6 +4,8 @@ export * from 'core/timeline';
 export * from 'core/track';
 export * from 'core/clip';
 export * from 'core/effect';
+export * from 'core/screen';
+export * from 'core/layer';
 export * from 'core/visualizer';
 
 // Tracks
@@ -15,15 +17,15 @@ export * from 'track/audio-track';
 export * from 'track/video-track';
 
 // Effects
-export * from 'effects/audio/audio-effect';
-export * from 'effects/audio/delay';
-export * from 'effects/audio/reverb';
-export * from 'effects/audio/equalizer';
-export * from 'effects/visual/visual-effect';
-export * from 'effects/visual/blur';
-export * from 'effects/visual/brightness';
-export * from 'effects/visual/contrast';
-export * from 'effects/visual/grayscale';
+export * from 'effect/audio/audio-effect';
+export * from 'effect/audio/delay';
+export * from 'effect/audio/reverb';
+export * from 'effect/audio/equalizer';
+export * from 'effect/visual/visual-effect';
+export * from 'effect/visual/blur';
+export * from 'effect/visual/brightness';
+export * from 'effect/visual/contrast';
+export * from 'effect/visual/grayscale';
 
 // Visualizers
 export * from 'visualizer/waveform-visualizer';
