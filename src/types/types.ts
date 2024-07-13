@@ -1,4 +1,5 @@
 import { AudioClip } from 'clip/audio-clip';
+import { ImageClip } from 'clip/image-clip';
 import { VideoClip } from 'clip/video-clip';
 import { DelayEffect } from 'effect/audio/delay-effect';
 import { EqualizerEffect } from 'effect/audio/equalizer-effect';
@@ -11,11 +12,11 @@ import { ImageLayer } from 'layer/image-layer';
 import { TextLayer } from 'layer/text-layer';
 import { VideoLayer } from 'layer/video-layer';
 import { AudioTrack } from 'track/audio-track';
-import { VideoTrack } from 'track/video-track';
+import { VisualTrack } from 'track/visual-track';
 
-type Clip = AudioClip | VideoClip;
+type Clip = AudioClip | VideoClip | ImageClip;
 
-type Track = AudioTrack | VideoTrack;
+type Track = AudioTrack | VisualTrack;
 
 type AudioEffect = DelayEffect | ReverbEffect | EqualizerEffect;
 
@@ -24,8 +25,6 @@ type VisualEffect = BlurEffect | BrightnessEffect | ContrastEffect | GrayscaleEf
 type Effect = AudioEffect | VisualEffect;
 
 type Layer = VideoLayer | ImageLayer | TextLayer;
-
-type ClipSource = string | Blob;
 
 type Transformation = {
 	translateX?: number;
@@ -42,4 +41,33 @@ type Transformation = {
 	skewZ?: number;
 };
 
-export { Clip, Track, AudioEffect, VisualEffect, Effect, Layer, ClipSource, Transformation };
+type ImageMimeType =
+	| 'image/jpeg'
+	| 'image/png'
+	| 'image/gif'
+	| 'image/webp'
+	| 'image/svg+xml'
+	| 'image/bmp'
+	| 'image/tiff'
+	| 'image/x-icon';
+
+type VideoMimeType =
+	| 'video/mp4'
+	| 'video/webm'
+	| 'video/ogg'
+	| 'video/x-msvideo'
+	| 'video/mpeg'
+	| 'video/quicktime';
+
+type AudioMimeType =
+	| 'audio/midi'
+	| 'audio/mpeg'
+	| 'audio/webm'
+	| 'audio/ogg'
+	| 'audio/wav'
+	| 'audio/aac'
+	| 'audio/flac';
+
+type MimeType = ImageMimeType | VideoMimeType | AudioMimeType;
+
+export { Clip, Track, AudioEffect, VisualEffect, Effect, Layer, Transformation, MimeType };

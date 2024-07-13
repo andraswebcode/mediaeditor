@@ -1,16 +1,24 @@
-import { ClipSource, Effect, Track } from 'types/types';
+import { Effect, Track } from 'types/types';
 import { Base } from './base';
 
-abstract class Clip<E = Effect> extends Base<Track> {
-	public id: string;
-	public name: string;
+abstract class Clip<E = HTMLElement, F = Effect> extends Base<Track> {
+	public type: string;
 	public startTime: number;
 	public endTime: number;
-	public source: ClipSource;
-	public effects: E[];
+	public source: string;
+	public element: E;
+	public blob: Blob;
+	public effects: F[];
 	public fadeIn: number;
 	public fadeOut: number;
 	public playbackRate: number;
+
+	public constructor(element: E) {
+		super();
+		this.element = element;
+		this.type = 'clip';
+		this._createId();
+	}
 }
 
 export { Clip };

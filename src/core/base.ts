@@ -1,5 +1,11 @@
+import { uniqueId } from 'utils/functions';
+
 abstract class Base<Parent = any> {
+	public id: string;
+	public name: string;
+	public type: string;
 	public parent: Parent;
+
 	private _listeners: any = {};
 
 	public on() {
@@ -34,6 +40,12 @@ abstract class Base<Parent = any> {
 
 	private _set(key: string, value: any) {
 		this[key] = value;
+	}
+
+	protected _createId() {
+		if (!this.id) {
+			this.id = uniqueId(this.type);
+		}
 	}
 }
 

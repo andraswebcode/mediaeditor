@@ -5,3 +5,6 @@ const project = new mediaeditor.Project(screen, timeline);
 const layer = new mediaeditor.VideoLayer();
 
 // screen.add(layer).update();
+
+project.import('assets/video.mp4', 'video');
+project.import('assets/audio.mp3', 'audio');

@@ -8,13 +8,14 @@ export * from 'core/screen';
 export * from 'core/layer';
 export * from 'core/visualizer';
 
-// Tracks
+// Clips
 export * from 'clip/audio-clip';
 export * from 'clip/video-clip';
+export * from 'clip/image-clip';
 
-// Clips
+// Tracks
 export * from 'track/audio-track';
-export * from 'track/video-track';
+export * from 'track/visual-track';
 
 // Effects
 export * from 'effect/audio/audio-effect';
@@ -39,3 +40,7 @@ export * from 'visualizer/video-frame-visualizer';
 // Maths
 export * from './math/matrix4';
 export * from './math/vector3';
+
+// Utils
+export * from './utils/create';
+// export * from './utils/functions';

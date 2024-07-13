@@ -22,6 +22,10 @@ abstract class CollectionBase<
 		return this;
 	}
 
+	public getById(id: string) {
+		return this.children.find((el) => el.id === id);
+	}
+
 	protected _added(child: Child) {}
 }
 
