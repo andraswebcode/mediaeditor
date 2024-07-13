@@ -23,10 +23,24 @@ class Vector3 {
 		return this;
 	}
 
+	public addScalar(scale: number): Vector3 {
+		this.x += scale;
+		this.y += scale;
+		this.z += scale;
+		return this;
+	}
+
 	public subtract(v: Vector3): Vector3 {
 		this.x -= v.x;
 		this.y -= v.y;
 		this.z -= v.z;
+		return this;
+	}
+
+	public subtractScalar(scale: number): Vector3 {
+		this.x -= scale;
+		this.y -= scale;
+		this.z -= scale;
 		return this;
 	}
 
@@ -37,11 +51,51 @@ class Vector3 {
 		return this;
 	}
 
+	public multiplyScalar(scale: number): Vector3 {
+		this.x *= scale;
+		this.y *= scale;
+		this.z *= scale;
+		return this;
+	}
+
 	public divide(v: Vector3): Vector3 {
 		this.x /= v.x;
 		this.y /= v.y;
 		this.z /= v.z;
 		return this;
+	}
+
+	public divideScalar(scale: number): Vector3 {
+		this.x /= scale;
+		this.y /= scale;
+		this.z /= scale;
+		return this;
+	}
+
+	public normalize(): Vector3 {
+		const length = this.length();
+
+		if (length > 0) {
+			this.divideScalar(length);
+		}
+
+		return this;
+	}
+
+	public cross(v: Vector3): Vector3 {
+		const crossX = this.y * v.z - this.z * v.y;
+		const crossY = this.z * v.x - this.x * v.z;
+		const crossZ = this.x * v.y - this.y * v.x;
+
+		this.x = crossX;
+		this.y = crossY;
+		this.z = crossZ;
+
+		return this;
+	}
+
+	public dot(v: Vector3): number {
+		return this.x * v.x + this.y * v.y + this.z * v.z;
 	}
 
 	public lerp(v: Vector3, t: number): Vector3 {

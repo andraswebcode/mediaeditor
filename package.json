@@ -5,8 +5,8 @@
 	"types": "./src/index.d.ts",
 	"scripts": {
 		"start": "webpack serve",
-		"build": "webpack --env production",
-		"dev": "webpack"
+		"dev": "webpack",
+		"build": "webpack --env production"
 	},
 	"author": "Andras Tovishati",
 	"license": "MIT",

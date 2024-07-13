@@ -1,4 +1,5 @@
 import { Transformation } from 'types/types';
+import { Vector3 } from './vector3';
 
 /* prettier-ignore */
 class Matrix4 {
@@ -139,6 +140,40 @@ class Matrix4 {
 
 		return this.multiply(skewingMatrix);
 	}
+
+	public perspective(fov: number, aspect: number, near: number, far: number): Matrix4 {
+		const f = 1.0 / Math.tan(fov / 2);
+		const range = near - far;
+
+		const a = f / aspect;
+		const b = f;
+		const c = (near + far) / range;
+		const d = 2 * near * far / range;
+
+		const perspectiveMatrix = new Matrix4([
+			a, 0,  0, 0,
+			0, b,  0, 0,
+			0, 0,  c, d,
+			0, 0, -1, 0
+		]);
+
+		return this.multiply(perspectiveMatrix);
+	}
+
+	public lookAt(eye: Vector3, target = new Vector3(), up = new Vector3(0, 1, 0)): Matrix4 {
+		const zAxis = eye.clone().subtract(target).normalize();
+		const xAxis = up.clone().cross(zAxis).normalize();
+		const yAxis = zAxis.clone().cross(xAxis).normalize();
+
+		const viewMatrix = new Matrix4([
+			xAxis.x, xAxis.y, xAxis.z, -xAxis.dot(eye),
+			yAxis.x, yAxis.y, yAxis.z, -yAxis.dot(eye),
+			zAxis.x, zAxis.y, zAxis.z, -zAxis.dot(eye),
+			0, 0, 0, 1
+		]);
+
+		return this.multiply(viewMatrix);
+    }
 
 	public invert(): Matrix4 {
 		const m = this._elements;

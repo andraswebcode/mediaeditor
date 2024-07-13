@@ -1,23 +1,28 @@
 import { Layer } from 'types/types';
 import { CollectionBase } from './collection-base';
+import { Matrix4 } from 'math/matrix4';
+import { Vector3 } from 'math/vector3';
 
 class Screen extends CollectionBase<never, Layer> {
 	public canvas: HTMLCanvasElement;
 	public context: WebGLRenderingContext | null;
 	public program: WebGLProgram | null;
+	public projectionMatrix = new Matrix4();
 
 	public constructor(canvas: HTMLCanvasElement) {
 		super();
 		this.canvas = canvas;
 		this.context = canvas.getContext('webgl');
 		this.program = this._createShaderProgram();
+		this.projectionMatrix.perspective(Math.PI / 4, canvas.width / canvas.height, 0.1, 100);
 	}
 
 	public update() {
 		const gl = this.context;
+		const program = this.program;
 		const { width, height } = this.canvas;
 
-		if (!gl) {
+		if (!gl || !program) {
 			return this;
 		}
 
@@ -25,7 +30,12 @@ class Screen extends CollectionBase<never, Layer> {
 		gl.clearColor(0, 0, 0, 1);
 		gl.clear(gl.COLOR_BUFFER_BIT);
 
-		gl.useProgram(this.program);
+		gl.useProgram(program);
+
+		const uMatrix = gl.getUniformLocation(program, 'uProjectionMatrix');
+		gl.uniformMatrix4fv(uMatrix, false, this.projectionMatrix.get());
+
+		this.children.forEach((layer) => layer.draw());
 
 		return this;
 	}
@@ -49,34 +59,49 @@ class Screen extends CollectionBase<never, Layer> {
 		gl.shaderSource(fragmentShader, this._getFragmentSource());
 
 		gl.compileShader(vertexShader);
-		gl.compileShader(fragmentShader);
-
 		if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-			console.log(gl.getShaderInfoLog(vertexShader));
+			console.error('Vertex shader compilation error:', gl.getShaderInfoLog(vertexShader));
+			gl.deleteShader(vertexShader);
+			return null;
 		}
+
+		gl.compileShader(fragmentShader);
 		if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-			console.log(gl.getShaderInfoLog(fragmentShader));
+			console.error(
+				'Fragment shader compilation error:',
+				gl.getShaderInfoLog(fragmentShader)
+			);
+			gl.deleteShader(fragmentShader);
+			return null;
 		}
 
 		gl.attachShader(program, vertexShader);
 		gl.attachShader(program, fragmentShader);
 
 		gl.linkProgram(program);
-
 		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-			console.log(gl.getProgramInfoLog(program));
+			console.error('Shader program linking error:', gl.getProgramInfoLog(program));
+			gl.deleteProgram(program);
+			return null;
 		}
 
-		this.update();
+		gl.validateProgram(program);
+		if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
+			console.error('Shader program validation error:', gl.getProgramInfoLog(program));
+			gl.deleteProgram(program);
+			return null;
+		}
 
 		return program;
 	}
 
 	private _getVertexSource() {
 		return `
-			attribute vec4 aPos;
+			attribute vec2 aPosition;
+			uniform mat4 uProjectionMatrix;
+			uniform mat4 uModelViewMatrix;
 			void main(){
-				gl_Position = aPos;
+				gl_Position = uModelViewMatrix * vec4(aPosition, 0.0, 1.0);
 			}
 		`;
 	}
@@ -87,6 +112,10 @@ class Screen extends CollectionBase<never, Layer> {
 				gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 			}
 		`;
+	}
+
+	protected _added(child: Layer) {
+		child.initBuffer();
 	}
 }
 
