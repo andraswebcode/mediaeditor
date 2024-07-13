@@ -1,13 +1,20 @@
 import { Clip } from 'types/types';
 
-abstract class Visualizer {
+abstract class Visualizer<C extends Clip> {
 	public canvas: HTMLCanvasElement;
 	public context: CanvasRenderingContext2D | null;
-	public clip: Clip;
-	public width: number;
-	public height: number;
+	public clip: C;
 
-	public constructor(canvas: HTMLCanvasElement) {
+	get width() {
+		return this.canvas.width;
+	}
+
+	get height() {
+		return this.canvas.height;
+	}
+
+	public constructor(clip: C, canvas: HTMLCanvasElement) {
+		this.clip = clip;
 		this.canvas = canvas;
 		this.context = canvas.getContext('2d');
 	}

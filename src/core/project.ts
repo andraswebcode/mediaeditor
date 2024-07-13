@@ -27,7 +27,7 @@ class Project extends Base {
 	public export() {}
 
 	private _createClip(src: string, type: string, blob: Blob, trackId?: string) {
-		const element = createElement(src, type);
+		const element = createElement(type, src);
 		const track = !!trackId && this.timeline.getById(trackId);
 		let clip: any = null;
 
