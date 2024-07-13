@@ -1,13 +1,28 @@
 import { Layer } from 'types/types';
 import { CollectionBase } from './collection-base';
 import { Matrix4 } from 'math/matrix4';
-import { Vector3 } from 'math/vector3';
+import { Project } from './project';
 
 class Screen extends CollectionBase<never, Layer> {
+	public project: Project;
 	public canvas: HTMLCanvasElement;
 	public context: WebGLRenderingContext | null;
 	public program: WebGLProgram | null;
 	public projectionMatrix = new Matrix4();
+
+	private _vertexSource = `
+		attribute vec2 aPosition;
+		uniform mat4 uProjectionMatrix;
+		uniform mat4 uModelViewMatrix;
+		void main(){
+			gl_Position = uModelViewMatrix * vec4(aPosition, 0.0, 1.0);
+		}
+	`;
+	private _fragmentSource = `
+		void main(){
+			gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+		}
+	`;
 
 	public constructor(canvas: HTMLCanvasElement) {
 		super();
@@ -55,8 +70,8 @@ class Screen extends CollectionBase<never, Layer> {
 			return null;
 		}
 
-		gl.shaderSource(vertexShader, this._getVertexSource());
-		gl.shaderSource(fragmentShader, this._getFragmentSource());
+		gl.shaderSource(vertexShader, this._vertexSource);
+		gl.shaderSource(fragmentShader, this._fragmentSource);
 
 		gl.compileShader(vertexShader);
 		if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
@@ -93,25 +108,6 @@ class Screen extends CollectionBase<never, Layer> {
 		}
 
 		return program;
-	}
-
-	private _getVertexSource() {
-		return `
-			attribute vec2 aPosition;
-			uniform mat4 uProjectionMatrix;
-			uniform mat4 uModelViewMatrix;
-			void main(){
-				gl_Position = uModelViewMatrix * vec4(aPosition, 0.0, 1.0);
-			}
-		`;
-	}
-
-	private _getFragmentSource() {
-		return `
-			void main(){
-				gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-			}
-		`;
 	}
 
 	protected _added(child: Layer) {

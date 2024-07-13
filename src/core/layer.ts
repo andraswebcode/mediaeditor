@@ -1,16 +1,16 @@
 import { Base } from './base';
 import { Matrix4 } from 'math/matrix4';
 import { Screen } from './screen';
-import { VideoClip } from 'clip/video-clip';
+import { Clip } from 'types/types';
 
 abstract class Layer extends Base<Screen> {
 	public matrix = new Matrix4();
 	public vertices: Float32Array;
 	public buffer: WebGLBuffer | null;
 	public aPosition: GLint;
-	public clip: VideoClip;
+	public clip: Clip;
 
-	public constructor(clip: VideoClip) {
+	public constructor(clip: Clip) {
 		super();
 		this.clip = clip;
 	}

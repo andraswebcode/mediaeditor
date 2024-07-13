@@ -1,7 +1,10 @@
 import { Track } from 'types/types';
 import { CollectionBase } from './collection-base';
+import { Project } from './project';
 
 class Timeline extends CollectionBase<never, Track> {
+	public project: Project;
+
 	private _startTime = 0;
 	private _currentTime = 0;
 	private _playing = false;
@@ -65,6 +68,7 @@ class Timeline extends CollectionBase<never, Track> {
 
 	private _update() {
 		console.log('update');
+		this.project.screen.update();
 	}
 }
 

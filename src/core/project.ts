@@ -7,6 +7,7 @@ import { ImageClip } from 'clip/image-clip';
 import { AudioClip } from 'clip/audio-clip';
 import { AudioTrack } from 'track/audio-track';
 import { VisualTrack } from 'track/visual-track';
+import { MediaType } from 'types/types';
 
 class Project extends Base {
 	public screen: Screen;
@@ -14,19 +15,19 @@ class Project extends Base {
 
 	public constructor(screen: Screen, timeline: Timeline) {
 		super();
+		screen.project = this;
+		timeline.project = this;
 		this.screen = screen;
 		this.timeline = timeline;
 	}
 
-	public import(src: string, type: string, trackId?: string) {
-		fetch(src)
-			.then((response) => response.blob())
-			.then((blob) => this._createClip(src, type, blob, trackId));
+	public import(src: string, type: MediaType, trackId?: string) {
+		fetch(src).then(() => this._createClip(src, type, trackId));
 	}
 
 	public export() {}
 
-	private _createClip(src: string, type: string, blob: Blob, trackId?: string) {
+	private _createClip(src: string, type: MediaType, trackId?: string) {
 		const element = createElement(type, src);
 		const track = !!trackId && this.timeline.getById(trackId);
 		let clip: any = null;
@@ -34,9 +35,11 @@ class Project extends Base {
 		switch (type) {
 			case 'video':
 				clip = new VideoClip(element as HTMLVideoElement);
+				this.screen.add(clip.layer);
 				break;
 			case 'image':
 				clip = new ImageClip(element as HTMLImageElement);
+				this.screen.add(clip.layer);
 				break;
 			case 'audio':
 				clip = new AudioClip(element as HTMLAudioElement);

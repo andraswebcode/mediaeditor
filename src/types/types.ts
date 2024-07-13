@@ -70,4 +70,16 @@ type AudioMimeType =
 
 type MimeType = ImageMimeType | VideoMimeType | AudioMimeType;
 
-export { Clip, Track, AudioEffect, VisualEffect, Effect, Layer, Transformation, MimeType };
+type MediaType = 'video' | 'image' | 'audio';
+
+export {
+	Clip,
+	Track,
+	AudioEffect,
+	VisualEffect,
+	Effect,
+	Layer,
+	Transformation,
+	MimeType,
+	MediaType
+};
