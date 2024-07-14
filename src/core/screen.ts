@@ -17,7 +17,7 @@ class Screen extends CollectionBase<never, Layer> {
 		varying vec2 texCoords;
 
 		void main(){
-			texCoords = (aPosition + 1.0) / 2.0;
+			texCoords = vec2((aPosition.x + 1.0) / 2.0, (1.0 - aPosition.y) / 2.0);
 			gl_Position = uModelViewMatrix * vec4(aPosition, 0.0, 1.0);
 		}
 	`;
@@ -51,7 +51,7 @@ class Screen extends CollectionBase<never, Layer> {
 
 		gl.viewport(0, 0, width, height);
 		gl.clearColor(0, 0, 0, 1);
-		gl.clear(gl.COLOR_BUFFER_BIT);
+		gl.clear(gl.COLOR_BUFFER_BIT || gl.DEPTH_BUFFER_BIT);
 
 		gl.useProgram(program);
 

@@ -3,6 +3,7 @@ import { Base } from './base';
 
 abstract class Clip<E extends HTMLElement = HTMLElement, F = Effect> extends Base<Track> {
 	public element: E;
+	public buffer: ArrayBuffer;
 	public effects: F[] = [];
 	public duration = 0;
 	public startTime = 0;
@@ -12,9 +13,10 @@ abstract class Clip<E extends HTMLElement = HTMLElement, F = Effect> extends Bas
 	public fadeOut = 0;
 	public playbackRate = 1;
 
-	public constructor(element: E) {
+	public constructor(element: E, buffer: ArrayBuffer) {
 		super();
 		this.element = element;
+		this.buffer = buffer;
 		this.type = 'clip';
 		this._createId();
 		this._onLoadedMetadata = this._onLoadedMetadata.bind(this);

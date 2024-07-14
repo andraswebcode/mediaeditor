@@ -22,21 +22,29 @@ class Project extends Base {
 	}
 
 	public import(src: string, type: MediaType, trackId?: string) {
+		fetch(src)
+			.then((response) => response.arrayBuffer())
+			.then((buffer) => this._createClip(buffer, src, type, trackId));
+	}
+
+	public export() {}
+
+	private _createClip(buffer: ArrayBuffer, src: string, type: MediaType, trackId?: string) {
 		const element = createElement(type, src);
 		const track = !!trackId && this.timeline.getById(trackId);
 		let clip: any = null;
 
 		switch (type) {
 			case 'video':
-				clip = new VideoClip(element as HTMLVideoElement);
+				clip = new VideoClip(element as HTMLVideoElement, buffer);
 				this.screen.add(clip.layer);
 				break;
 			case 'image':
-				clip = new ImageClip(element as HTMLImageElement);
+				clip = new ImageClip(element as HTMLImageElement, buffer);
 				this.screen.add(clip.layer);
 				break;
 			case 'audio':
-				clip = new AudioClip(element as HTMLAudioElement);
+				clip = new AudioClip(element as HTMLAudioElement, buffer);
 				break;
 			default:
 				break;
@@ -55,8 +63,6 @@ class Project extends Base {
 			this.timeline.add(newTrack);
 		}
 	}
-
-	public export() {}
 }
 
 export { Project };

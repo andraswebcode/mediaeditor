@@ -6,10 +6,11 @@ import { VisualEffect } from 'types/types';
 class ImageClip extends Clip<HTMLImageElement, VisualEffect> {
 	public layer: ImageLayer;
 
-	public constructor(element: HTMLImageElement) {
-		super(element);
+	public constructor(element: HTMLImageElement, buffer: ArrayBuffer) {
+		super(element, buffer);
 		this.layer = new ImageLayer(this);
 		this.duration = config.get('imageDuration');
+		this.cutEnd = config.get('imageDuration');
 	}
 }
 
