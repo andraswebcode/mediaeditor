@@ -22,12 +22,6 @@ class Project extends Base {
 	}
 
 	public import(src: string, type: MediaType, trackId?: string) {
-		fetch(src).then(() => this._createClip(src, type, trackId));
-	}
-
-	public export() {}
-
-	private _createClip(src: string, type: MediaType, trackId?: string) {
 		const element = createElement(type, src);
 		const track = !!trackId && this.timeline.getById(trackId);
 		let clip: any = null;
@@ -61,6 +55,8 @@ class Project extends Base {
 			this.timeline.add(newTrack);
 		}
 	}
+
+	public export() {}
 }
 
 export { Project };

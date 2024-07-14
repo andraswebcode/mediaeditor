@@ -8,6 +8,9 @@ export * from 'core/screen';
 export * from 'core/layer';
 export * from 'core/visualizer';
 
+// Config
+export * from 'congfig/congif';
+
 // Clips
 export * from 'clip/audio-clip';
 export * from 'clip/video-clip';

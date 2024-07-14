@@ -8,6 +8,7 @@ class VideoClip extends Clip<HTMLVideoElement, VisualEffect> {
 	public constructor(element: HTMLVideoElement) {
 		super(element);
 		this.layer = new VideoLayer(this);
+		element.addEventListener('loadedmetadata', this._onLoadedMetadata);
 	}
 }
 
