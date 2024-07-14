@@ -14,13 +14,21 @@ class Screen extends CollectionBase<never, Layer> {
 		attribute vec2 aPosition;
 		uniform mat4 uProjectionMatrix;
 		uniform mat4 uModelViewMatrix;
+		varying vec2 texCoords;
+
 		void main(){
+			texCoords = (aPosition + 1.0) / 2.0;
 			gl_Position = uModelViewMatrix * vec4(aPosition, 0.0, 1.0);
 		}
 	`;
 	private _fragmentSource = `
+		precision highp float;
+		uniform sampler2D uSampler;
+		varying vec2 texCoords;
+
 		void main(){
-			gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+			vec4 color = texture2D(uSampler, texCoords);
+			gl_FragColor = color;
 		}
 	`;
 
@@ -112,6 +120,7 @@ class Screen extends CollectionBase<never, Layer> {
 
 	protected _added(child: Layer) {
 		child.initBuffer();
+		child.initTexture();
 	}
 }
 
